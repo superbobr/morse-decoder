@@ -38,7 +38,38 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    let cipher = [];
+    let cipherUnit = '';
+    let resultDecode = [];
+    let result = [];
+    let str = '';
+    for (let char of expr) {
+        cipherUnit += char;
+        if (cipherUnit.length === 10) {
+            cipher.push(cipherUnit);
+            cipherUnit = '';
+        }
+    }
+    
+    for (let letter of cipher) {
+       resultDecode.push(letter.replace(/00/g, '').replace(/10/g, '.').replace(/11/g, '-'));
+}
+    for (let stars of resultDecode) {
+       if (stars.startsWith('*')){
+         result.push(' ');
+       } else {
+         result.push(stars);
+       }
+    }
+    
+    for (let morse of result) {
+      if (morse === ' ') {
+        str += ' ';
+      } else {
+      str += MORSE_TABLE[morse];
+    }
+    }
+    return str;
 }
 
 module.exports = {
